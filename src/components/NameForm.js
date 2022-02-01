@@ -18,15 +18,13 @@ const NameForm = () => {
         navigate("/pokedex");
     }
 
-    const pokemonRandom = () => {
-        get(`https://pokeapi.co/api/v2/pokemon/${Math.floor(Math.random() * 898) + 1}/`)
+    useEffect(() => {
+        get(`https://pokeapi.co/api/v2/pokemon/${pokemonRandom()}/`)
         .then(({data}) => {setPokemon(data);
             setLoader(false);
         })
         .catch(err => console.log(err))
-    }
-
-    useEffect(() => pokemonRandom() ,[  ])
+    } ,[  ])
 
     return (
         <section className='page-start'>
@@ -82,6 +80,7 @@ const NameForm = () => {
     );
 };
 
+const pokemonRandom = () => Math.floor(Math.random() * 898) + 1;
 
 
 export default NameForm;

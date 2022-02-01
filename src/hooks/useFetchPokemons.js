@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import {get} from 'axios';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const useFetchPokemons = () => {
-
+    const dispatch = useDispatch();
     const page = useSelector(state => state.page);
     const pokemonShow = useSelector(state => state.pokemon_show);
     const typeSelected = useSelector(state => state.type_select);
+    const rangeFilterPage = useSelector(state => state.rangeFilterPage)
 
     const [urls, setUrls] = useState([]);
 
@@ -22,14 +23,27 @@ const useFetchPokemons = () => {
         }else {
             get(typeSelected)
             .then(({data}) => {setUrls(data.pokemon.map(pokemon => pokemon.pokemon.url))
+                dispatch({type:"SET_PAGE", payload: 1})
+                dispatch({type: "RESET_RANGE"})
             })
         }
     }, [ typeSelected ]);
-    
-    const totalPages = Math.ceil(urls.length / pokemonShow);
+
     const urlFilter = urls.slice(firtsIndex,lastIndex);
 
-     return [urlFilter, totalPages]
+    const totalPages = Math.ceil(urls.length / pokemonShow);
+
+    let pagesNumbers = [];
+
+    for(let i = 1; i <= totalPages; i++){
+        pagesNumbers.push(i);
+    }
+
+    let filterPagesNumber = pagesNumbers.slice(rangeFilterPage.firtsIndex,rangeFilterPage.lastIndex);
+  
+   
+
+     return [urlFilter, filterPagesNumber, rangeFilterPage]
 
 };
 
