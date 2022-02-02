@@ -6,7 +6,8 @@ rangeFilterPage:{
     firtsIndex: 0,
     lastIndex: 10
 },
-type_select: "All"
+type_select: "All",
+typeCheked: false
 
 }
 
@@ -32,6 +33,8 @@ const reducer = (state = INITIAL_STATE, action) => {
                     }
         case "RESET_RANGE":
             return{...state, rangeFilterPage: {firtsIndex: 0, lastIndex: 10}}
+        case "SET_TYPE_CHEKED":
+            return{...state, typeCheked: action.payload}
         default:
             return state;
     }

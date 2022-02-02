@@ -7,10 +7,10 @@ import useFetchPokemons from '../hooks/useFetchPokemons';
 const HeaderPokedex = () => {
 
     const [types, setTypes] = useState([]);
-    const [typeCheked, setTypeCheked] = useState(false);
     const [wantedPokemon, setWantedPokemon] = useState("");
     const [,filterPagesNumber, rangeFilterPage] = useFetchPokemons();
 
+    const typeCheked = useSelector(state => state.typeCheked)
     const name = useSelector(state => state.name);
     const page = useSelector(state => state.page);
     const dispatch = useDispatch();
@@ -42,7 +42,7 @@ const HeaderPokedex = () => {
                 {
                     typeCheked ? 
                     (
-                        <select onChange={e => dispatch({type:"SELECT_TYPE",payload:`${e.target.value}`}) }>
+                        <select onChange={e => dispatch({type:"SELECT_TYPE",payload:`${e.target.value}`})}>
                             <option value="All">All Pokemons</option>
                             {
                                 types.map(type => (
@@ -58,7 +58,9 @@ const HeaderPokedex = () => {
                     )
                 }
                 
-                <input type="checkbox" id='check-select' onChange={e => setTypeCheked(e.target.checked)}/>
+                <input type="checkbox" id='check-select' 
+                checked={typeCheked}
+                onChange={e => dispatch({type:"SET_TYPE_CHEKED", payload: e.target.checked})}/>
                 
             </div>
             
