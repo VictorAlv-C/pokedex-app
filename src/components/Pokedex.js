@@ -1,6 +1,8 @@
 import PokemonInfo from './PokemonInfo';
 import useFetchPokemons from '../hooks/useFetchPokemons';
 import HeaderPokedex from './HeaderPokedex';
+import Pagination from './Pagination';
+
 
 
 const Pokedex = () => {
@@ -11,7 +13,6 @@ const Pokedex = () => {
     return (
         <div className='main-page'>
 
-            <div className='main-section'>
                 <HeaderPokedex />
                 <section className="pokemon-content">
                     {
@@ -22,8 +23,7 @@ const Pokedex = () => {
                          ))
                     }
                 </section>
-            </div>      
-            
+
         </div>
     );
 };

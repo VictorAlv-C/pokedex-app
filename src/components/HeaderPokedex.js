@@ -2,17 +2,17 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {get} from 'axios';
 import { useNavigate } from 'react-router-dom';
-import useFetchPokemons from '../hooks/useFetchPokemons';
+import Pagination from './Pagination';
+
 
 const HeaderPokedex = () => {
 
     const [types, setTypes] = useState([]);
     const [wantedPokemon, setWantedPokemon] = useState("");
-    const [,filterPagesNumber, rangeFilterPage] = useFetchPokemons();
+    
 
     const typeCheked = useSelector(state => state.typeCheked)
     const name = useSelector(state => state.name);
-    const page = useSelector(state => state.page);
     const dispatch = useDispatch();
 
     const navigate = useNavigate();
@@ -26,16 +26,27 @@ const HeaderPokedex = () => {
         navigate(`/pokedex/${wantedPokemon}`)
     }
 
+    const logOut = () => {
+        dispatch({type:"SET_NAME",payload:""});
+        navigate('/');
+    }
+
     
     return (
         <header className='header-main'>
 
             <div className='container-title'>
+                <b><i class="fas fa-user"></i> {name}</b>
                 <div> 
                     <span className='poke-ball'></span>
                     <h1>Pokedéx</h1>
                 </div>
-                <p>Welcome <b>{name}</b></p>
+                <button onClick={() => logOut()}><i class="fas fa-sign-out-alt"></i></button>
+            </div>
+
+            <div className='instruccion'>
+                <p>Search a pokemon by name or pokedéx number</p>
+                <p>and filter by type</p>
             </div>
 
             <div className='container-select'>
@@ -57,40 +68,16 @@ const HeaderPokedex = () => {
                         </div>
                     )
                 }
-                
-                <input type="checkbox" id='check-select' 
-                checked={typeCheked}
-                onChange={e => dispatch({type:"SET_TYPE_CHEKED", payload: e.target.checked})}/>
-                
+                <div className="cheked-type">
+                    <input type="checkbox" id='check-select' 
+                    checked={typeCheked}
+                    onChange={e => dispatch({type:"SET_TYPE_CHEKED", payload: e.target.checked})}/>
+                    <label htmlFor='check-select'>{typeCheked ? 'Disable filter by type' : 'Activate filter by type' }</label>
+                </div>
+                                
             </div>
             
-            
-            
-            <div className='pagination'>
-                {
-                    rangeFilterPage.firtsIndex > 0 && 
-                        <button onClick={() => dispatch({type:"PREV_RANGE"})}> 
-                            Previus 
-                        </button> 
-                }
-                {
-                    filterPagesNumber.map(number => (
-                        <button key={number} className={`${number === page ? 'page-active' : ''}`} 
-                            onClick={() => dispatch({type:"SET_PAGE", payload: number})}>
-                                {number}
-                        </button>
-                    ))
-            
-                }
-                {
-                    rangeFilterPage.lastIndex < 70 && 
-                        <button onClick={() => dispatch({type:"NEXT_RANGE"})}> 
-                            Next 
-                        </button> 
-                }
-              
-                
-            </div>
+            <Pagination />
             
         </header>
     );

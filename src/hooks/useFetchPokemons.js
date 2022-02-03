@@ -38,12 +38,9 @@ const useFetchPokemons = () => {
     for(let i = 1; i <= totalPages; i++){
         pagesNumbers.push(i);
     }
+ 
 
-    let filterPagesNumber = pagesNumbers.slice(rangeFilterPage.firtsIndex,rangeFilterPage.lastIndex);
-  
-   
-
-     return [urlFilter, filterPagesNumber, rangeFilterPage]
+     return [urlFilter, pagesNumbers, rangeFilterPage]
 
 };
 

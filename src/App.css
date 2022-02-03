@@ -7,6 +7,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Mochiy+Pop+P+One&family=Nunito:wght@300;400;500;600;700&display=swap');
 body{
   font-family: 'Mochiy Pop P One', sans-serif;
+  overflow-x: hidden;
 }
 
 .App section{
@@ -153,29 +154,25 @@ cursor: pointer;
 /* --- PAGE  MAIN-------------------------*/
 
 .main-page{
-  background-image: url(./img/fondo4.jpg);
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: top;
+  min-width: 100vw;
   min-height: 100vh;
-}
-
-.main-section{
-  background-image: url(./img/fondo4.jpg);
-  width: 80%;
-  min-height: 100vh;
-  margin: 0 auto;
-  background-color: #fff;;
 }
 
 .header-main{ 
   margin-bottom: 20px;
+  min-height: 30vh;
+  color: hsl(212, 82%, 22%);
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
 }
 
 .header-main .container-title {
-  padding: 5px 30px;
+  padding: 5px;
   display: flex;
-  justify-content: space-between  ;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 30px;
 }
 
 .header-main .container-title div {   
@@ -191,22 +188,39 @@ cursor: pointer;
     position: relative;
 }
 
+.header-main .container-title button{
+  color: rgb(15, 15, 14);
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-shadow: 1px 2px 3px rgb(6, 26, 49);
+  position: relative;
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.header-main .container-title button:hover{
+  transform: scale(1.1);
+}
+
 .header-main .container-title .poke-ball{
   display: block;
-  width: 30px;
-  height: 30px;
+  width: 20px;
+  height: 20px;
   border: 2px solid black;
   border-radius: 50%;
   position: relative;
   overflow: hidden;
   animation: pokeBall 3s linear  infinite ;
+  background-color: #fff;
 }
 
 .header-main .container-title .poke-ball::before{
   content: '';
   position: absolute;
   width: 100%;
-  height: 50%;
+  height: 47%;
   background-color: red;
   border-bottom: 2px solid black;
 }
@@ -232,23 +246,37 @@ transform: translateX(-50%) translateY(-50%);
   100%{transform: rotate(50deg);}
 }
 
+.header-main .instruccion{
+  min-width: 400px;
+  min-height: 50px;
+  padding: 5px;
+  box-shadow: 1px 1px 3px rgba(243, 53, 6, 0.952);
+  border-radius: .5rem;
+  margin: 0 auto;
+  text-align: center;
+  font-size: .75rem;
+  letter-spacing: 1px;
+}
+
 .header-main .container-select{
-  border: 1px solid red;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
   height: 50px;
 }
+
 .container-select input[type="checkbox"]{
   position: relative;
   -webkit-appearance: none;
-  width: 60px;
-  height: 20px;
-  background: #f04f05;
+  width: 35px;
+  height: 10px;
+  background: gray;
   outline: none;
   border-radius: 20px;
   box-shadow: inset 1px 1px 5px rgba(0,0,0,.4);
-  transition: .5s;
+  transition: .1s;
   cursor: pointer;
 }
 .container-select input:checked[type="checkbox"]{
@@ -257,77 +285,183 @@ transform: translateX(-50%) translateY(-50%);
 .container-select input[type="checkbox"]:before{
   content: '';
   position: absolute;
-  width: 30px;
-  height: 30px;
+  width: 15px;
+  height: 20px;
   border-radius: 20px;
   top: 50%;
   left: 0;
   background: white;
   box-shadow: 0 2px 5px rgba(0,0,0,.2);
   transform: scale(1) translateY(-50%);
-  transition: .5s;
+  transition: .3s;
+  border: 1px solid gray;
 }
 .container-select input:checked[type="checkbox"]:before{
   left: 30px;
 }
 
-
-.header-main .pagination .page-active{
-  background-color: turquoise;
+.container-select .search-name input[type="text"]{
+  border: none;
+  outline: none;
+  width: 300px;
+  min-height: 40px;
+  padding: 5px;
+  border-radius: 1rem;
+  margin-right: 5px;
+  text-align: center;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0,.8);
+  color: gray;
+  font-size: 1.2rem;
 }
 
-.pokemon-content{
+.container-select .search-name button{
+  padding: 10px;
+  border-radius: .5rem;
+  border: none;
+  background-color: hsla(240, 94%, 43%, 0.89);
+  color: #fff;
+  box-shadow: 1px -3px 0px rgba(0, 0, 0, .5);
+  cursor: pointer;
+}
+
+.container-select .cheked-type{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  font-size: .75rem;
+}
+
+.container-select select{
+  background-color: #fff;
+  border: none;
+  outline: none;
+  width: 300px;
+  min-height: 40px;
+  padding: 5px;
+  border-radius: 1rem;
+  margin-right: 5px;
+  text-align: center;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0,.8);
+  color: #666;
+  font-size: 1.2rem;
+}
+
+.header-main .pagination{
+  padding: 10px;
+  background-color: hsla(0, 0%, 50%, .05);
+  box-shadow: inset 2px 2px 5px rgba(0, 0, 0,.5);
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.header-main .pagination button{
+  text-align: center;
+  width: 25px;
+  height: 25px;
+  border-radius: 1rem;
+  border: none;
+  background-color: hsla(0, 80%, 50%, 0.822);
+  color: #fff;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, .5);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.header-main .pagination .btnPN{
+  background-color: rgba(15, 11, 243, 0.904);
+}
+
+.header-main .pagination .page-active{
+  transform: scale(1.4);
+  background-color: red
+}
+
+/*--------- POKEMON  CONTENT --------------------*/
+
+.main-page .pokemon-content{
+  
   margin: 0 auto;
   width: 90%;
   display: grid;
-  gap: 10px;
+  gap: 20px;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   grid-auto-rows: 250px;
   justify-content: space-around;
+  overflow: hidden;
 }
 
 .pokemon-card{
   box-shadow: 2px 2px 5px rgba(0, 0, 0, .5); 
-  border-radius: .5rem;
+  border-radius: 5rem;
   position: relative;
+  overflow: hidden;
+  transition: .25s;
 }
 
+.pokemon-card:hover{
+  transform: scale(1.02);
+  box-shadow: 0 3px 25px rgba(0, 0, 0, .5);
+}
 
 .link-pokemon{
   width: 100%;
   height: 100%;
   display: block;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  background-image: url(./img/pokeball.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  text-decoration: none;
+  color: #fff;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, .5);
+  text-transform: capitalize;
+}
+
+.link-pokemon .pokemon-info{
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  background: rgba(255, 235, 59,.6)
+  flex-direction: column;
+  justify-content: center ;
+}
+
+.link-pokemon .pokemon-info .title{
+text-align: center;
+margin-bottom: 15px;
+}
+
+.link-pokemon .pokemon-info .title h3{
+  display: inline;
+  margin-right: 10px;
+}
+
+.link-pokemon .pokemon-info .title p{
+  display: inline;
+  margin-right: 5px;
+  padding: 2px;
+  border-radius: .5rem;
+  font-size: .6rem;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, .5);
+}
+
+.link-pokemon .pokemon-info .pokemon-stats{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-items: center;
+  gap: 5px;
+  background-color: hsla(0, 0%, 50%, .35);
 }
 
 .link-pokemon img{
+  justify-self: center;
   display: block;
-  width: 30%;
+  width: 40%;
   filter: saturate(200%) brightness(105%) contrast(110%) drop-shadow(4px 4px 1px  grey);
   position: relative;
 }
 
-.link-pokemon img::before{
-  content: '';
-  position: absolute;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: black;
-  z-index: 10;
-}
 
-.link-pokemon h3{
-margin: 0 auto;
-}
-
-.fire{
-  background-color: tomato;
-
-}
 
 .pokemon-detail{
   position: relative;
@@ -385,6 +519,29 @@ margin: 0 auto;
     top: -120px;
     left: -20px;
   }
+
+
+  .header-main .container-title .poke-ball{
+    width: 30px;
+    height: 30px;
+  }
+
+  .header-main .container-title h1{
+    font-size: 3rem;
+  }
+
+.pokemon-card{
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, .5); 
+  border-radius: 3.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.link-pokemon{
+  background-size: contain;
+  background-position: center;
+}
+
 }
 
 @media only screen and (min-width: 873px) {
@@ -399,10 +556,46 @@ margin: 0 auto;
     background-position: 150px center;
     
   }
+
   .who-pokemon .img-container{
   background: none;
   }
 
+  .main-page{
+  background-color: #fff;
+  }
+
+  .header-main .container-title h1{
+    font-size: 4rem;
+  }
+
+  .header-main .container-select {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 15px;
+    height: 50px;
+  }
+
+
+.header-main .pagination{
+  justify-content: center;
+  gap: 20px;
+}
+
+.header-main .pagination button{
+  text-align: center;
+  width: 45px;
+  height: 45px;
+  border-radius:50%;
+  box-shadow: 2px 2px 5px rgba(6, 69, 105, 0.747);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.header-main .pagination .page-active{
+  transform: scale(1.2);
+}
 
   .link-pokemon img{
     width: 50%;
@@ -411,6 +604,8 @@ margin: 0 auto;
     width: 55%;
     height: 70%;
   }
+
+  
 }
 
 @media only screen and (min-width: 1115px) {
