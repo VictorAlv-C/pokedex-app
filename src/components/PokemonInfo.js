@@ -9,7 +9,7 @@ const PokemonInfo = ({url}) => {
         const[pokemon, setPokemon] = useState({});
         useEffect(() => { 
             get(url).then(({data}) => setPokemon(data))
-        }, [ url ])     
+        }, [ url ])    
 
     return (
             <Link to={`/pokedex/${pokemon.id}/`} 

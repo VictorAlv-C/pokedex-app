@@ -1,7 +1,6 @@
 import PokemonInfo from './PokemonInfo';
 import useFetchPokemons from '../hooks/useFetchPokemons';
 import HeaderPokedex from './HeaderPokedex';
-import Pagination from './Pagination';
 
 
 

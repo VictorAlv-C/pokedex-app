@@ -63,7 +63,7 @@ const HeaderPokedex = () => {
                          </select> 
                     ) : (
                         <div className='search-name'>
-                            <input type="text" placeholder='Name or Type' onChange={e => setWantedPokemon(e.target.value)} />
+                            <input type="text" placeholder='Name or Number' onChange={e => setWantedPokemon(e.target.value)} />
                             <button onClick={() => searchPokemon() }>Search</button>
                         </div>
                     )
