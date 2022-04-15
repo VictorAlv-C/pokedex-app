@@ -1,86 +1,85 @@
-import React, { useEffect, useState } from 'react';
-import {useDispatch} from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import {get} from 'axios';
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { get } from "axios";
 
 const NameForm = () => {
-    const [name, setName] = useState("");
-    const [pokemon, setPokemon] = useState({});
-    const [whatPokemon, setWhatPokemon] = useState(false);
-    const [loader, setLoader] = useState(true);
+  const [name, setName] = useState("");
+  const [pokemon, setPokemon] = useState({});
+  const [whatPokemon, setWhatPokemon] = useState(false);
+  const [loader, setLoader] = useState(true);
 
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-    const submit = e => {
-        e.preventDefault();
-        dispatch({type:"SET_NAME", payload: name});
-        navigate("/pokedex");
-    }
+  const submit = (e) => {
+    e.preventDefault();
+    sessionStorage.setItem("name", name);
+    dispatch({ type: "SET_NAME", payload: sessionStorage.getItem("name") });
+    navigate("/pokedex");
+  };
 
-    useEffect(() => {
-        get(`https://pokeapi.co/api/v2/pokemon/${pokemonRandom()}/`)
-        .then(({data}) => {setPokemon(data);
-            setLoader(false);
-        })
-        .catch(err => console.log(err))
-    } ,[  ])
+  useEffect(() => {
+    get(`https://pokeapi.co/api/v2/pokemon/${pokemonRandom()}/`)
+      .then(({ data }) => {
+        setPokemon(data);
+        setLoader(false);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
-    return (
-        <section className='page-start'>
-
-            <div className='who-pokemon'>
-            {
-                loader ? (<div className="loader-pokeball"></div> 
-                        ) : (
-                            <div className="img-container">
-                                <img src={pokemon.sprites?.other['official-artwork']?.front_default} 
-                                alt="Pokemon Oculto" className={`${whatPokemon ? 'show' : ''}`}
-                                />
-                            </div>
-                            
-                        )
-            }  
-                {
-                    whatPokemon ? (
-                        <>
-                            <p className='name-pokemon'>Is: <b>{pokemon.name}</b></p>
-                        </>
-                    ) : (
-                        <>
-                            <p className="who-is">Who is this</p>
-                            <div className="container-btn-show">
-                                <button onClick={() => setWhatPokemon(true)}>Discover</button>
-                            </div>
-                        </>
-                         )
-                }
-                
+  return (
+    <section className="page-start">
+      <div className="who-pokemon">
+        {loader ? (
+          <div className="loader-pokeball"></div>
+        ) : (
+          <div className="img-container">
+            <img
+              src={pokemon.sprites?.other["official-artwork"]?.front_default}
+              alt="Pokemon Oculto"
+              className={`${whatPokemon ? "show" : ""}`}
+            />
+          </div>
+        )}
+        {whatPokemon ? (
+          <>
+            <p className="name-pokemon">
+              Is: <b>{pokemon.name}</b>
+            </p>
+          </>
+        ) : (
+          <>
+            <p className="who-is">Who is this</p>
+            <div className="container-btn-show">
+              <button onClick={() => setWhatPokemon(true)}>Discover</button>
             </div>
-            
-            <div className="page-start-welcome">
+          </>
+        )}
+      </div>
 
-                <h1>Hi,</h1>
-                <form onSubmit={submit}>
-                    <label >
-                        <input type="text" 
-                            id='name'
-                            placeholder='type your name to entry'
-                            value={name} 
-                            onChange={e => setName(e.target.value)}
-                            required
-                        />
-                    </label>
-                    <button><i class="fas fa-door-open"></i></button>
-                 </form>
-
-             </div>
-            
-        </section>
-    );
+      <div className="page-start-welcome">
+        <h1>Hi,</h1>
+        <form onSubmit={submit}>
+          <label>
+            <input
+              type="text"
+              id="name"
+              placeholder="type your name to entry"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+          </label>
+          <button>
+            <i class="fas fa-door-open"></i>
+          </button>
+        </form>
+      </div>
+    </section>
+  );
 };
 
 const pokemonRandom = () => Math.floor(Math.random() * 898) + 1;
-
 
 export default NameForm;
